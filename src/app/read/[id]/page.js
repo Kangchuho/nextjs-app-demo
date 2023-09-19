@@ -10,7 +10,7 @@ function read(props) {
   // console.log(id)
   useEffect(() => {    
     fetch(process.env.NEXT_PUBLIC_API_URL+'topics/'+id, {cache: 'no-store'})
-      .then((resp) => {return resp.json()})
+      .then(res=>res.json())
       .then(result => {
         // console.log(id, result);
         setContent(result);

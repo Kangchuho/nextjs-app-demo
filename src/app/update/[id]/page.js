@@ -7,13 +7,15 @@ function page() {
   const router = useRouter();
   const params = useParams()
   const id = params.id;
-  const [content, setContent] = useState([])  
+  const [title, setTitle] = useState('')
+  const [body, setBody] = useState('')
   useEffect(() => {    
     fetch(process.env.NEXT_PUBLIC_API_URL+'topics/'+id, {cache: 'no-store'})
-      .then((resp) => {return resp.json()})
+      .then(res=>res.json())
       .then(result => {
-        // console.log(id, result);
-        setContent(result);
+        //  console.log(id, result);
+         setTitle(result.title)
+         setBody(result.body);
       })
   },[])
 
@@ -39,17 +41,15 @@ function page() {
   return (    
     <form className='p-1' onSubmit={postFrom}>
       <p className='p-2'>
-        <input type='text' placeholder='title' name='title' value={content.title} 
+        <input type='text' placeholder='title' name='title' value={title} 
         className='text-blue-300'
-        onChange={(value)=>{
-          setContent(rev => [value, rev[1]]);
-        }}
+        onChange={(e) => { setTitle(e.target.value)}}
         />        
       </p>
       <p className='p-2'>
-          <textarea name="body" placeholder='body' className='text-black' value={content.body}
-          onChange={(value)=>{
-            setContent(rev => [rev[0], value]);
+          <textarea name="body" placeholder='body' className='text-black' value={body}
+          onChange={(e)=>{
+            setBody(e.target.value);
           }}
           />
       </p>

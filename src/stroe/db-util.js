@@ -26,8 +26,15 @@ export const update = (item) => {
   //마지막에 아이템을 변경합니다. 
   // db.topics = items.filter(i => i.id != item.id); //, item];
   // db.topics.push(item);
-  const updatedItem = {id: item.id, title: item.title, body: item.body};
+  const updatedItem = {id: parseInt(item.id), title: item.title, body: item.body};
   db.topics = [...items.filter(i => i.id != updatedItem.id), updatedItem];
-  console.log(updatedItem)
+  console.log(db.topics)
+  
   return updatedItem;
+}
+
+
+export const item_delete = (item) => {
+  const items = get();
+  db.topics = [...items.filter(i => i.id != item.id)];
 }

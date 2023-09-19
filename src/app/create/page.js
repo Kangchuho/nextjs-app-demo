@@ -13,12 +13,12 @@ function page() {
       headers: {
         'content-type': 'application/json'
       },
-      body: JSON.stringify({title, body})
+      body: JSON.stringify({title: title, body: body})
     }
     fetch(process.env.NEXT_PUBLIC_API_URL+'topics',options)
       .then(res=>res.json())
       .then(result=>{
-        //console.log(result)
+        // console.log(result)
         //route.refresh(`/read/${result.id}`);
         router.push(`/read/${result.id}`);
         router.refresh();
@@ -28,7 +28,7 @@ function page() {
   return (    
     <form className='p-1' onSubmit={postFrom}>
       <p className='p-2'>
-        <input type='text' placeholder='title' name='title' className='text-blue-300' />        
+        <input type='text' placeholder='title...' name='title' className='text-blue-300' />        
       </p>
       <p className='p-2'>
           <textarea name="body" placeholder='body' className='text-black' />
