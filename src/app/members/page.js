@@ -13,7 +13,7 @@ const options = {
 async function read(props) {
   let data = null
   try {
-    const res = await fetch(process.env.NEXT_PUBLIC_API_URL+'info/', options)  
+    const res = await fetch(process.env.NEXT_PUBLIC_API_URL+'user', options)  
     data = await res.json();   
     console.log(data); 
   } catch (error) {

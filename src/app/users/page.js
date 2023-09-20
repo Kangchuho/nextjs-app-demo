@@ -23,7 +23,7 @@ function read(props) {
   const [newId, setNewId] = useState(new Date().toISOString());
 
   useEffect(() => {    
-    fetch(process.env.NEXT_PUBLIC_API_URL+'info/', options)
+    fetch(process.env.NEXT_PUBLIC_API_URL+'user', options)
       .then(res=>res.json())
       .then(result => {
         // console.log('users: ',result);
@@ -33,7 +33,7 @@ function read(props) {
 
   async function reload() {    
     try {
-      const res = await fetch(process.env.NEXT_PUBLIC_API_URL+'info/', options)  
+      const res = await fetch(process.env.NEXT_PUBLIC_API_URL+'user', options)  
       const data = await res.json();   
       setContent(data);
       console.log(data); 
@@ -46,9 +46,9 @@ function read(props) {
     const options = {
       method: 'POST',
       headers: {
-        'content-type': 'application/json',
         'app-user': 'monitor',
         'device-id': 'web-server',
+        'content-type': 'application/json',
       },
       body: JSON.stringify({
           id: 0,
@@ -64,14 +64,14 @@ function read(props) {
           return res.json()
         } catch (error) {
           console.log(error);
-          alert();
+          // alert();
         }
       })
       .then(result=>{
-        console.log(result)
+        console.log(result.id)
         //route.refresh(`/read/${result.id}`);
-        //setNewId(result.id)
-        reload();
+        setNewId(result.id)
+        // reload();
         // router.refresh();
         // router.push(`/users`);
         // location.href = '/users'
@@ -87,7 +87,7 @@ function read(props) {
             Users: {content ? content.length : null}
           </h2>        
           {content ? content.map((user)=>{
-            return (<div>
+            return (<div key={`user-'${user.id}'`}>
               {user.userName}
             </div>)
           }) : null}
@@ -96,7 +96,7 @@ function read(props) {
       <section className='flex w-full justify-center mt-2'>
         <div>
           <button className='px-10 bg-yellow-600 rounded-md py-2' name='add' onClick={()=>{
-            userAdd()
+            userAdd();
           }}>Add User</button>
         </div>
       </section>
