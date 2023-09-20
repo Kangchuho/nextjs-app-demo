@@ -2,6 +2,15 @@
 import { useParams, useRouter } from 'next/navigation';
 import React, { useEffect, useState } from 'react'
 
+const getOptions = {
+  method: 'GET',
+  headers: {
+    'app-user': 'monitor',
+    'device-id': 'web-server',
+  },
+  cache: 'no-store'
+}
+
 function page() {
 
   const router = useRouter();
@@ -10,7 +19,7 @@ function page() {
   const [title, setTitle] = useState('')
   const [body, setBody] = useState('')
   useEffect(() => {    
-    fetch(process.env.NEXT_PUBLIC_API_URL+'topics/'+id, {cache: 'no-store'})
+    fetch(process.env.NEXT_PUBLIC_API_URL+'topics/'+id, getOptions)
       .then(res=>res.json())
       .then(result => {
         //  console.log(id, result);
@@ -26,7 +35,9 @@ function page() {
     const options = {
       method: 'PATCH',
       headers: {
-        'content-type': 'application/json'
+        'content-type': 'application/json',
+        'app-user': 'monitor',
+        'device-id': 'web-server',
       },
       body: JSON.stringify({title, body})
     }

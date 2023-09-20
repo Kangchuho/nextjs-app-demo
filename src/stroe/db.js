@@ -37,5 +37,13 @@ export const db = {
   ],
   "profile": {
     "name": "typicode"
-  }
+  },
+  "users": [
+    {
+      "id": 1,
+      "userName": "관리자",
+      "deviceId": "d-1",
+      "isAdmin": true
+    },
+  ]
 }

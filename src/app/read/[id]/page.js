@@ -2,14 +2,25 @@
 import React, { useEffect, useState } from 'react'
 import { useParams } from 'next/navigation'
 
+const options = {
+  method: 'GET',
+  headers: {
+    'app-user': 'monitor',
+    'device-id': 'web-server',
+  },
+  cache: 'no-store'
+}
+
+
 function read(props) {
   // const id = props.params.id
   const params = useParams()
   const id = params.id;
   const [content, setContent] = useState([])  
   // console.log(id)
+
   useEffect(() => {    
-    fetch(process.env.NEXT_PUBLIC_API_URL+'topics/'+id, {cache: 'no-store'})
+    fetch(process.env.NEXT_PUBLIC_API_URL+'topics/'+id, options)
       .then(res=>res.json())
       .then(result => {
         // console.log(id, result);

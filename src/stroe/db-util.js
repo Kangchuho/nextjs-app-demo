@@ -1,5 +1,6 @@
 import {db} from './db'
 
+// 메뉴등록 curd
 export const get = () => {
   return db.topics;
 }
@@ -37,4 +38,29 @@ export const update = (item) => {
 export const item_delete = (item) => {
   const items = get();
   db.topics = [...items.filter(i => i.id != item.id)];
+}
+
+// 사용자 계정 CRUD
+export const allUsers = () => {
+  return db.users;
+}
+export const newUser = (u) => {  
+  const items = allUsers();
+  const sortItems = items.sort((a, b)=>{if(a.id > b.id) return -1;});
+  const maxIdx = items.length == 0 ? 1 : sortItems[0].id+1;
+  const newItem = {id: maxIdx, userName: u.userName, deviceId: u.deviceId, isAdmin: false};
+  db.users.push(newItem);
+  // console.log('db util:',db.users);
+  return newItem;
+}
+export const updateUser = (user) => {
+  const users = allUsers()
+  db.users = [...users.filter(i => i.id != user.id), user]
+}
+export const deleteUseryId = (id) => {
+  const user = getUserById(id)
+  db.users.pop(user);
+}
+export const getUserById = (id) => {
+  return db.users.filter(user => user.id === id)
 }

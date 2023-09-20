@@ -19,7 +19,11 @@ export function Controls() {
             <li className='bg-blue-400 p-2 rounded-md text-black'><Link href={`/update/${id}`}>Update</Link></li>
             <li className='bg-red-400 p-2 rounded-md text-black'><input type='button' value='Delete' onClick={()=>{
               const options = {
-                method: 'DELETE',                
+                method: 'DELETE',
+                headers: {
+                  'app-user': 'monitor',
+                  'device-id': 'web-server',
+                },             
               }
               fetch(process.env.NEXT_PUBLIC_API_URL+'topics/'+id, options)
                 .then(resp=>resp.json())

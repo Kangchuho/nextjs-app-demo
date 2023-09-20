@@ -11,7 +11,9 @@ function page() {
     const options = {
       method: 'POST',
       headers: {
-        'content-type': 'application/json'
+        'content-type': 'application/json',
+        'app-user': 'monitor',
+        'device-id': 'web-server',
       },
       body: JSON.stringify({title: title, body: body})
     }
